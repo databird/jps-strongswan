@@ -25,6 +25,18 @@ settings:
   main:
     fields:
     - type: string
+      name: left
+      caption: Host public IP (left)
+      hideLabel: false
+      required: true
+      default: 127.0.0.1
+    - type: string
+      name: leftSubnet
+      caption: Host sunbnet (leftsubnet)
+      hideLabel: false
+      required: true
+      default: 127.0.0.1/32
+    - type: string
       name: right
       caption: Peer public IP (right)
       hideLabel: false
@@ -125,6 +137,20 @@ onBeforeInit: |
     "result": 0,
     "settings": {
       "fields": [{
+        "type": "string",
+        "name": "left",
+        "caption": "Host public IP (left)",
+        "hideLabel": false,
+        "required": true,
+        "default": "127.0.0.1"
+      }, {
+        "type": "string",
+        "name": "leftSubnet",
+        "caption": "Host sunbnet (leftsubnet)",
+        "hideLabel": false,
+        "required": true,
+        "default": "127.0.0.1/32"
+      },{
         "type": "string",
         "name": "right",
         "caption": "Peer public IP (right)",
@@ -233,7 +259,7 @@ actions:
       - curl -fsSL '${baseUrl}/scripts/strongswan_configure_firewall-custom.sh' -o /root/strongswan_configure_firewall-custom.sh;
       - sh /root/strongswan_configure_firewall-custom.sh;
       - curl -fsSL '${baseUrl}/scripts/strongswan_configure.sh' -o /root/strongswan_configure.sh;
-      - sh /root/strongswan_configure.sh "install" "${baseUrl}" "${settings.keyexchange}" "${settings.right}" "${settings.rightSubnet}" '${settings.psk}' "${settings.ike}" "${settings.esp}" "${settings.hosts}";
+      - sh /root/strongswan_configure.sh "install" "${baseUrl}" "${settings.keyexchange}" "${settings.left}" "${settings.leftSubnet}" "${settings.right}" "${settings.rightSubnet}" '${settings.psk}' "${settings.ike}" "${settings.esp}" "${settings.hosts}";
       - curl -fsSL '${baseUrl}/scripts/sudo_strongswan' -o /etc/sudoers.d/strongswan;
       - curl -fsSL '${baseUrl}/scripts/profile_strongswan' -o /etc/profile.d/strongswan.sh;
       - curl -fsSL '${baseUrl}/scripts/strongswan_monit.sh' -o /usr/local/bin/strongswan_monit.sh;
