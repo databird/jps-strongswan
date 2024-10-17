@@ -3,12 +3,14 @@
 action="$1"
 baseUrl="$2"
 keyexchange="$3"
-right="$4"
-rightsubnet="$5"
-psk="$6"
-ike="$7"
-esp="$8"
-hosts="$9"
+left="$4"
+leftsubnet="$5"
+right="$6"
+rightsubnet="$7"
+psk="$8"
+ike="$9"
+esp="$10"
+hosts="$11"
 
 ipsecConf="/etc/strongswan/ipsec.conf"
 ipsecSecrets="/etc/strongswan/ipsec.secrets"
@@ -32,10 +34,10 @@ if [ "$action" == "uninstall" ]; then
     exit 0;
 fi
 
-left=$(hostname -I | awk '{print $2}')
-left=$(ip addr show | grep "venet" | grep "inet " | grep -v 127.0.0.1 | grep -v 10.10 | awk '{print $2}' | sed 's#/.*##')
-leftSubnet=$(hostname -I | awk '{print $3}')"/32"
-leftSubnet=$(ip addr show | grep "inet " | grep -v 127.0.0.1 | grep 10.10 | awk '{print $2}' | sed 's#/.*##')"/32"
+# left=$(hostname -I | awk '{print $2}')
+# left=$(ip addr show | grep "venet" | grep "inet " | grep -v 127.0.0.1 | grep -v 10.10 | awk '{print $2}' | sed 's#/.*##')
+# leftSubnet=$(hostname -I | awk '{print $3}')"/32"
+# leftSubnet=$(ip addr show | grep "inet " | grep -v 127.0.0.1 | grep 10.10 | awk '{print $2}' | sed 's#/.*##')"/32"
 
 #ipsec.conf
 
