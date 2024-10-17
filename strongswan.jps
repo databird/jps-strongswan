@@ -4,7 +4,7 @@ build: 20190910
 type: update
 name: 'strongswan'
 id: 'strongswan'
-homepage: https://github.com/layershift/jps-strongswan
+homepage: https://github.com/databird/jps-strongswan
 baseUrl: https://raw.githubusercontent.com/databird/jps-strongswan/master
 logo: /images/strongswan_square_large_white.png?_r=${fn.random}
 
@@ -17,7 +17,6 @@ description:
 
 targetNodes:
   nodeGroup:
-  - cp
   - bl
 
 requiredFeatures: extip
