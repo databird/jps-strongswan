@@ -18,6 +18,7 @@ description:
 targetNodes:
   nodeGroup:
   - cp
+  - bl
 
 requiredFeatures: extip
 
