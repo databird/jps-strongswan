@@ -5,7 +5,7 @@ type: update
 name: 'strongswan'
 id: 'strongswan'
 homepage: https://github.com/layershift/jps-strongswan
-baseUrl: https://raw.githubusercontent.com/layershift/jps-strongswan/master
+baseUrl: https://raw.githubusercontent.com/databird/jps-strongswan/master
 logo: /images/strongswan_square_large_white.png?_r=${fn.random}
 
 categories:
@@ -60,6 +60,7 @@ settings:
         aes128-sha256-modp3072: aes128-sha256-modp3072
         aes128-sha1-modp2048: aes128-sha1-modp2048 (before 5.4.0)
         aes128-sha1-modp1536 : aes128-sha1-modp1536 (For Cisco endpoint)
+        aes256-sha512-ecp521! : aes256-sha512-ecp521!
       hideLabel: false
       editable: yes
       required: true
@@ -70,6 +71,7 @@ settings:
       values:
         aes128-sha256: aes128-sha256
         aes128-sha1: aes128-sha1 (For Cisco endpoint)
+        aes256-sha512-ecp521: aes256-sha512-ecp521
       hideLabel: false
       editable: yes
       required: true
@@ -167,7 +169,8 @@ onBeforeInit: |
         "values": {
           "aes128-sha256-modp3072": "aes128-sha256-modp3072",
           "aes128-sha1-modp2048": "aes128-sha1-modp2048 (before 5.4.0)",
-          "aes128-sha1-modp1536": "aes128-sha1-modp1536 (For Cisco endpoint)"
+          "aes128-sha1-modp1536": "aes128-sha1-modp1536 (For Cisco endpoint)",
+          "aes256-sha512-ecp521!": "aes256-sha512-ecp521!"
         },
         "default": "aes128-sha256-modp3072"
       }, {
@@ -179,7 +182,8 @@ onBeforeInit: |
         "editable": true,
         "values": {
           "aes128-sha256": "aes128-sha256",
-          "aes128-sha1": "aes128-sha1 (For Cisco endpoint)"
+          "aes128-sha1": "aes128-sha1 (For Cisco endpoint)",
+          "aes256-sha512-ecp521": "aes256-sha512-ecp521"
         },
         "default": "aes128-sha256"
       }, {
