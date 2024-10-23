@@ -377,9 +377,9 @@ actions:
 
   checkLogFile:
     - cmd [${globals.targetNodeId}]:
-        - tail -n 50 /var/log/messages
-        - cp -f /var/log/messages /opt/messages
-        - chmod 777 /opt/messages
+        - tail -n 20 /var/log/messages
+        #- cp -f /var/log/messages /opt/messages
+        #- chmod 777 /opt/messages
       user: root
     - message: ${response.out}
       script: |
