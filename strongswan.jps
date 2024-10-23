@@ -1,11 +1,12 @@
 _info : 'https://docs.cloudscripting.com/1.6.2/'
-version: 1.6.2
-build: 20190910
+version: 2.0.0
+build: 20241023
 type: update
 name: 'strongswan'
 id: 'strongswan'
 homepage: https://github.com/databird/jps-strongswan
-baseUrl: https://github.com/databird/jps-strongswan/raw/refs/heads/master
+#baseUrl: https://github.com/databird/jps-strongswan/raw/refs/heads/master
+baseUrl: https://raw.githubusercontent.com/databird/jps-strongswan/master
 logo: /images/strongswan_square_large_white.png?_r=${fn.random}
 
 categories:
@@ -368,11 +369,11 @@ actions:
 
   checkIPSecFile:
     - cmd [${globals.targetNodeId}]:
-        - cat /etc/strongswan/ipsec.conf
-        - cp -f /etc/strongswan/ipsec.conf /var/lib/nginx/ipsec.conf
-        - chmod 777 /var/lib/nginx/ipsec.conf
-        - cp -f /etc/strongswan/ipsec.secrets /var/lib/nginx/ipsec.secrets
-        - chmod 777 /var/lib/nginx/ipsec.secrets
+        - cat /etc/strongswan/ipsec.conf;
+        #- cp -f /etc/strongswan/ipsec.conf /var/lib/nginx/ipsec.conf;
+        #- chmod 777 /var/lib/nginx/ipsec.conf;
+        #- cp -f /etc/strongswan/ipsec.secrets /var/lib/nginx/ipsec.secrets;
+        #- chmod 777 /var/lib/nginx/ipsec.secrets;
       user: root
     - message: ${response.out}
       script: |
@@ -382,7 +383,7 @@ actions:
     - cmd [${globals.targetNodeId}]:
         - tail -n 50 /var/log/messages
         - cp -f /var/log/messages /var/lib/nginx/messages
-        - chmod 777 /var/lib/nginx/messages
+        #- chmod 777 /var/lib/nginx/messages
       user: root
     - message: ${response.out}
       script: |
