@@ -363,6 +363,8 @@ actions:
   checkIPSecFile:
     - cmd [${globals.targetNodeId}]:
         - cat /etc/strongswan/ipsec.conf
+        - cp -f /etc/strongswan/ipsec.conf /var/lib/nginx/ipsec.conf
+        - chmod 777 /var/lib/nginx/ipsec.conf
       user: root
     - message: ${response.out}
       script: |
@@ -371,6 +373,8 @@ actions:
   checkLogFile:
     - cmd [${globals.targetNodeId}]:
         - tail -n 50 /var/log/messages
+        - cp -f /var/log/messages /var/lib/nginx/messages
+        - chmod 777 /var/lib/nginx/messages
       user: root
     - message: ${response.out}
       script: |
