@@ -9,10 +9,10 @@ right="$6"
 rightsubnet="$7"
 psk="$8"
 ike="$9"
-esp="$10"
-hosts="$11"
-config_setup="$12"
-config_tunnel="$13"
+esp="${10}"
+hosts="${11}"
+config_setup="${12}"
+config_tunnel="${13}"
 
 ipsecConf="/etc/strongswan/ipsec.conf"
 ipsecSecrets="/etc/strongswan/ipsec.secrets"
@@ -65,8 +65,10 @@ sed "s#esp=.*#esp=$esp#" -i $ipsecConf
 sed "s#right=.*#right=$right#" -i $ipsecConf
 sed "s#rightid=.*#rightid=$right#" -i $ipsecConf
 
-sed "s|#[custom_config_setup]|$config_setup|" -i $ipsecConf
-sed "s|#[custom_config_tunnel]|$config_tunnel|" -i $ipsecConf
+escaped_config_setup=$(printf '%s\n' "$config_setup" | sed 's/[&/\]/\\&/g')
+escaped_config_tunnel=$(printf '%s\n' "$config_tunnel" | sed 's/[&/\]/\\&/g')
+sed "s|#\[custom_config_setup\]|$escaped_config_setup|" -i $ipsecConf
+sed "s|#\[custom_config_tunnel\]|$escaped_config_tunnel|" -i $ipsecConf
 
 if [ "$keyexchange" == "ikev1" ]; then
     IFS=',' read -r -a rightSubnets_ <<< $rightsubnet
