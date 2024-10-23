@@ -114,6 +114,9 @@ menu:
   - caption: Check log file
     loadingText: Checking...
     action: checkLogFile
+  - caption: Check current directory
+    loadingText: Checking...
+    action: checkCurrentDir
   - caption: Configure
     loadingText: Updating...
     settings: main
@@ -391,6 +394,14 @@ actions:
         - tail -n 20 /var/log/messages
         #- cp -f /var/log/messages /opt/messages
         #- chmod 777 /opt/messages
+      user: root
+    - message: ${response.out}
+      script: |
+        return {result: 2308, message: message.replace(/\n/g, '  \n')}
+
+  checkCurrentDir:
+    - cmd [${globals.targetNodeId}]:
+        - cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd
       user: root
     - message: ${response.out}
       script: |
