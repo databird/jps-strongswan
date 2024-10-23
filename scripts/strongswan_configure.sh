@@ -1,5 +1,7 @@
 #!/bin/bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/..";
+
 action="$1"
 baseUrl="$2"
 keyexchange="$3"
@@ -42,6 +44,8 @@ fi
 # leftSubnet=$(ip addr show | grep "inet " | grep -v 127.0.0.1 | grep 10.10 | awk '{print $2}' | sed 's#/.*##')"/32"
 
 #ipsec.conf
+
+mkdir -p /etc/strongswan/
 
 stat $ipsecConf  2>1 >/dev/null
 if [ $? -gt 0 ]; then
@@ -133,7 +137,7 @@ if [ $? -eq 0 ]; then
     sed "s#.*$right.*##" -i $ipsecSecrets
 fi
 
-echo "$left $right : PSK $psk" >> $ipsecSecrets
+# cho "$left $right : PSK $psk" >> $ipsecSecrets
 echo "$left : PSK $psk" >> $ipsecSecrets
 echo "$right : PSK $psk" >> $ipsecSecrets
 
@@ -145,8 +149,14 @@ echo "" >> $ipsecSecrets
 grep -q "^net.ipv4.ip_forward=" /etc/sysctl.conf 2>1 >/dev/null
 if [ $? -eq 0 ]; then
     sed 's#net.ipv4.ip_forward=.*#net.ipv4.ip_forward=1#' -i /etc/sysctl.conf
+    sed 's#net.ipv6.conf.all.forwarding=.*#net.ipv6.conf.all.forwarding=1#' -i /etc/sysctl.conf
+    sed 's#net.ipv4.conf.all.accept_redirects=.*#net.ipv4.conf.all.accept_redirects=0#' -i /etc/sysctl.conf
+    sed 's#net.ipv4.conf.all.send_redirects=.*#net.ipv4.conf.all.send_redirects=0#' -i /etc/sysctl.conf
 else    
     echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+    echo "net.ipv6.conf.all.forwarding=1" >> /etc/sysctl.conf
+    echo "net.ipv4.conf.all.accept_redirects=0" >> /etc/sysctl.conf
+    echo "net.ipv4.conf.all.send_redirects=0" >> /etc/sysctl.conf
 fi
 sysctl -p
 
