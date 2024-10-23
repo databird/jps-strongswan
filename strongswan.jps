@@ -108,6 +108,9 @@ menu:
   - caption: Check ipsec file
     loadingText: Checking...
     action: checkIPSecFile
+  - caption: Check secret file
+    loadingText: Checking...
+    action: checkSecretFile
   - caption: Check log file
     loadingText: Checking...
     action: checkLogFile
@@ -370,6 +373,14 @@ actions:
         #- chmod 777 /var/lib/nginx/ipsec.conf;
         #- cp -f /etc/strongswan/ipsec.secrets /var/lib/nginx/ipsec.secrets;
         #- chmod 777 /var/lib/nginx/ipsec.secrets;
+      user: root
+    - message: ${response.out}
+      script: |
+        return {result: 2308, message: message.replace(/\n/g, '  \n')}
+
+  checkSecretFile:
+    - cmd [${globals.targetNodeId}]:
+        - cat /etc/strongswan/ipsec.secrets;
       user: root
     - message: ${response.out}
       script: |
