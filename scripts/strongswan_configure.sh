@@ -65,8 +65,8 @@ sed "s#esp=.*#esp=$esp#" -i $ipsecConf
 sed "s#right=.*#right=$right#" -i $ipsecConf
 sed "s#rightid=.*#rightid=$right#" -i $ipsecConf
 
-escaped_config_setup=$(printf '%s\n' "$config_setup" | sed 's/[&/\]/\\&/g')
-escaped_config_tunnel=$(printf '%s\n' "$config_tunnel" | sed 's/[&/\]/\\&/g')
+escaped_config_setup=$(printf '%s\n' "$config_setup" | sed 's/[&/\#"]/\\&/g')
+escaped_config_tunnel=$(printf '%s\n' "$config_tunnel" | sed 's/[&/\#"]/\\&/g')
 sed "s|#\[custom_config_setup\]|$escaped_config_setup|" -i $ipsecConf
 sed "s|#\[custom_config_tunnel\]|$escaped_config_tunnel|" -i $ipsecConf
 
