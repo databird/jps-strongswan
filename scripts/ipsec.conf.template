@@ -24,24 +24,17 @@ conn myVPN
         left=$left                  #strongswan external address
         leftsubnet=$leftSubnet      #network behind strongswan
         leftid=$left                #IKEID sent by strongswan
-        #leftfirewall=yes
         right=$right                #PEER external address      
         rightsubnet=$rightSubnet    #network behind PEER   
         rightid=$right
         auto=start
         ike=aes128-sha1-modp1536           #P1: modp1536 = DH group 5
-        esp=aes128-sha1                   #P2
-        #pfs = yes
-        #pfsgroup = modp1536
-        
+        esp=aes128-sha1                   #P2        
         type=tunnel
-        
         dpddelay=300
         dpdtimeout=120
         #dpdinterval=60s
-        
         keyingtries=0
         dpdtimeout=120
         authby=psk
-        
         #[custom_config_tunnel]
