@@ -299,6 +299,9 @@ actions:
         message:  ${response.out}
         script: |
           return {result: 2309, message: message.replace(/\n/g, '  \n')}
+    - message: ${response.out}
+      script: |
+        return {result: 2308, message: message.replace(/\n/g, '  \n')}
 
   restartStrongswan:
     - cmd [${globals.targetNodeId}]:
