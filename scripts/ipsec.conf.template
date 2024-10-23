@@ -5,6 +5,7 @@
 config setup
         # strictcrlpolicy=yes
         uniqueids = no
+        #{custom_config_setup}
 
 conn %default
         ikelifetime=8h
@@ -44,4 +45,4 @@ conn myVPN
         dpdtimeout=120
         authby=psk
         
-        
+        #{custom_config_tunnel}
