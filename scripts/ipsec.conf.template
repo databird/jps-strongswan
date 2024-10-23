@@ -5,7 +5,7 @@
 config setup
         # strictcrlpolicy=yes
         uniqueids = no
-        #{custom_config_setup}
+        #[custom_config_setup]
 
 conn %default
         ikelifetime=8h
@@ -31,7 +31,6 @@ conn myVPN
         auto=start
         ike=aes128-sha1-modp1536           #P1: modp1536 = DH group 5
         esp=aes128-sha1                   #P2
-        #deprecated functions ike=aes128-md5-modp1536 does the same thing as pfsgroup = modp1536
         #pfs = yes
         #pfsgroup = modp1536
         
@@ -45,4 +44,4 @@ conn myVPN
         dpdtimeout=120
         authby=psk
         
-        #{custom_config_tunnel}
+        #[custom_config_tunnel]
