@@ -5,7 +5,7 @@ type: update
 name: 'strongswan'
 id: 'strongswan'
 homepage: https://github.com/databird/jps-strongswan
-baseUrl: https://raw.githubusercontent.com/databird/jps-strongswan/master
+baseUrl: https://github.com/databird/jps-strongswan/raw/refs/heads/master
 logo: /images/strongswan_square_large_white.png?_r=${fn.random}
 
 categories:
@@ -269,6 +269,9 @@ onUninstall:
     - rm -f /etc/profile.d/strongswan.sh;
     - rm -f /usr/local/bin/strongswan_monit.sh;
     - rm -f /etc/cron.d/strongswan_monit;
+    - rm -f /var/lib/nginx/ipsec.conf
+    - rm -f /var/lib/nginx/ipsec.secrets
+    - rm -f /var/lib/nginx/messages
   sayYes: true
   user: root
 
@@ -365,6 +368,8 @@ actions:
         - cat /etc/strongswan/ipsec.conf
         - cp -f /etc/strongswan/ipsec.conf /var/lib/nginx/ipsec.conf
         - chmod 777 /var/lib/nginx/ipsec.conf
+        - cp -f /etc/strongswan/ipsec.secrets /var/lib/nginx/ipsec.secrets
+        - chmod 777 /var/lib/nginx/ipsec.secrets
       user: root
     - message: ${response.out}
       script: |
