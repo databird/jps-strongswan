@@ -268,7 +268,9 @@ onUninstall:
     - systemctl disable strongswan;
     - systemctl stop strongswan;
     - yum remove strongswan strongswan-libipsec
+    - sh /root/strongswan_configure_firewall-custom.sh uninstall
     - sh /root/strongswan_configure.sh "uninstall"
+    - rm -f /root/strongswan_configure_firewall-custom.sh
     - rm -f /root/strongswan_configure.sh;
     - rm -f /etc/sudoers.d/strongswan;
     - rm -f /etc/profile.d/strongswan.sh;
@@ -286,6 +288,8 @@ actions:
       - which rpm 2>/dev/null >/dev/null; if [ $? -gt 0 ]; then echo -e "Issue:\nrpm not found"; exit 0; fi;
       - which systemctl 2>/dev/null >/dev/null; if [ $? -gt 0 ]; then echo -e "Issue:\nsystemctl not found"; exit 0; fi;
       - yum install epel-release && yum install strongswan strongswan-libipsec; if [ $? -gt 0 ]; then echo -e "Issue:\nCan't install strongswan"; exit 0; fi;
+      - curl -fsSL '${baseUrl}/scripts/strongswan_configure_firewall-custom.sh' -o /root/strongswan_configure_firewall-custom.sh;
+      - sh /root/strongswan_configure_firewall-custom.sh;
       - curl -fsSL '${baseUrl}/scripts/strongswan_configure.sh' -o /root/strongswan_configure.sh;
       - sh /root/strongswan_configure.sh "install" "${baseUrl}" "${settings.keyexchange}" "${settings.left}" "${settings.leftSubnet}" "${settings.right}" "${settings.rightSubnet}" '${settings.psk}' "${settings.ike}" "${settings.esp}" "${settings.hosts}" "${settings.custom_config_setup}" "${settings.custom_config_tunnel}";
       - curl -fsSL '${baseUrl}/scripts/sudo_strongswan' -o /etc/sudoers.d/strongswan;
