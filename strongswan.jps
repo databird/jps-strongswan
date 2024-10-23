@@ -3,9 +3,8 @@ version: 2.0.0
 build: 20241023
 type: update
 name: 'strongswan'
-id: 'strongswan'
+id: 'strongswan-databird'
 homepage: https://github.com/databird/jps-strongswan
-#baseUrl: https://github.com/databird/jps-strongswan/raw/refs/heads/master
 baseUrl: https://raw.githubusercontent.com/databird/jps-strongswan/master
 logo: /images/strongswan_square_large_white.png?_r=${fn.random}
 
