@@ -11,6 +11,8 @@ psk="$8"
 ike="$9"
 esp="$10"
 hosts="$11"
+config_setup="$12"
+config_tunnel="$13"
 
 ipsecConf="/etc/strongswan/ipsec.conf"
 ipsecSecrets="/etc/strongswan/ipsec.secrets"
@@ -60,14 +62,13 @@ sed "s#leftid=.*#leftid=$left#" -i $ipsecConf
 sed "s#ike=.*#ike=$ike#" -i $ipsecConf
 sed "s#esp=.*#esp=$esp#" -i $ipsecConf
 
-
-
 sed "s#right=.*#right=$right#" -i $ipsecConf
 sed "s#rightid=.*#rightid=$right#" -i $ipsecConf
 
+sed "s|#{custom_config_setup}|$config_setup|" -i "$ipsecConf"
+sed "s|#{custom_config_tunnel}|$config_tunnel|" -i "$ipsecConf"
 
 if [ "$keyexchange" == "ikev1" ]; then
-    
     IFS=',' read -r -a rightSubnets_ <<< $rightsubnet
     rightSubnets=()
     for subnet in ${rightSubnets_[*]}; do
@@ -131,6 +132,8 @@ if [ $? -eq 0 ]; then
 fi
 
 echo "$left $right : PSK $psk" >> $ipsecSecrets
+echo "$left : PSK $psk" >> $ipsecSecrets
+echo "$right : PSK $psk" >> $ipsecSecrets
 
 sed -i '/^$/d' $ipsecSecrets
 
