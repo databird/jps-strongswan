@@ -65,8 +65,8 @@ sed "s#esp=.*#esp=$esp#" -i $ipsecConf
 sed "s#right=.*#right=$right#" -i $ipsecConf
 sed "s#rightid=.*#rightid=$right#" -i $ipsecConf
 
-sed "s|#{custom_config_setup}|$config_setup|" -i "$ipsecConf"
-sed "s|#{custom_config_tunnel}|$config_tunnel|" -i "$ipsecConf"
+sed "s|#[custom_config_setup]|$config_setup|" -i $ipsecConf
+sed "s|#[custom_config_tunnel]|$config_tunnel|" -i $ipsecConf
 
 if [ "$keyexchange" == "ikev1" ]; then
     IFS=',' read -r -a rightSubnets_ <<< $rightsubnet
