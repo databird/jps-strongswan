@@ -93,20 +93,31 @@ settings:
       name: hosts
       caption: Custom /etc/hosts
       default: "#127.0.0.1 localhost"
-
+    - type: text
+      name: custom_config_setup
+      caption: Custom config in ipsec.conf setup section
+    - type: text
+      name: custom_config_tunnel
+      caption: Custom config in ipsec.conf tunnel section
     
 menu:
   - caption: Check hosts file
-    loadingText: Checking..
+    loadingText: Checking...
     action: checkHostsFile
+  - caption: Check ipsec file
+    loadingText: Checking...
+    action: checkIPSecFile
+  - caption: Check log file
+    loadingText: Checking...
+    action: checkLogFile
   - caption: Configure
-    loadingText: Updating..
+    loadingText: Updating...
     settings: main
     confirmText: Are you sure you wish to configure Strongswan?
     action: install
     successText: /text/success_configured.md
   - caption: Rebuild Config
-    loadingText: Reconfiguring..
+    loadingText: Reconfiguring...
     confirmText: Are you sure you wish to reconfigure Strongswan?
     action: install
 
@@ -218,6 +229,16 @@ onBeforeInit: |
         "name": "hosts",
         "caption": "Custom /etc/hosts",
         "default": "#127.0.0.1 localhost"
+      }, {
+        "type": "text",
+        "name": "custom_config_setup",
+        "caption": "Custom config in ipsec.conf setup section",
+        "default": ""
+      }, {
+        "type": "text",
+        "name": "custom_config_tunnel",
+        "caption": "Custom config in ipsec.conf tunnel section",
+        "default": ""
       }]
     }
   };
@@ -260,7 +281,7 @@ actions:
       #- curl -fsSL '${baseUrl}/scripts/strongswan_configure_firewall-custom.sh' -o /root/strongswan_configure_firewall-custom.sh;
       #- sh /root/strongswan_configure_firewall-custom.sh;
       - curl -fsSL '${baseUrl}/scripts/strongswan_configure.sh' -o /root/strongswan_configure.sh;
-      - sh /root/strongswan_configure.sh "install" "${baseUrl}" "${settings.keyexchange}" "${settings.left}" "${settings.leftSubnet}" "${settings.right}" "${settings.rightSubnet}" '${settings.psk}' "${settings.ike}" "${settings.esp}" "${settings.hosts}";
+      - sh /root/strongswan_configure.sh "install" "${baseUrl}" "${settings.keyexchange}" "${settings.left}" "${settings.leftSubnet}" "${settings.right}" "${settings.rightSubnet}" '${settings.psk}' "${settings.ike}" "${settings.esp}" "${settings.hosts}" "${settings.custom_config_setup}" "${settings.custom_config_tunnel}";
       - curl -fsSL '${baseUrl}/scripts/sudo_strongswan' -o /etc/sudoers.d/strongswan;
       - curl -fsSL '${baseUrl}/scripts/profile_strongswan' -o /etc/profile.d/strongswan.sh;
       - curl -fsSL '${baseUrl}/scripts/strongswan_monit.sh' -o /usr/local/bin/strongswan_monit.sh;
@@ -338,6 +359,23 @@ actions:
     - message: ${response.out}
       script: |
         return {result: 2308, message: message.replace(/\n/g, '  \n')}
+
+  checkIPSecFile:
+    - cmd [${globals.targetNodeId}]:
+        - cat /etc/strongswan/ipsec.conf
+      user: root
+    - message: ${response.out}
+      script: |
+        return {result: 2308, message: message.replace(/\n/g, '  \n')}
+
+  checkLogFile:
+    - cmd [${globals.targetNodeId}]:
+        - tail -n 50 /var/log/messages
+      user: root
+    - message: ${response.out}
+      script: |
+        return {result: 2308, message: message.replace(/\n/g, '  \n')}
+
 
 responses:
   2308:
