@@ -56,7 +56,7 @@ fi
 
 sed "s#keyexchange=.*#keyexchange=$keyexchange#" -i $ipsecConf
 sed "s#left=.*#left=$left#" -i $ipsecConf
-sed "s#leftsubnet=.*#leftsubnet=$leftSubnet#" -i $ipsecConf
+sed "s#leftsubnet=.*#leftsubnet=$leftsubnet#" -i $ipsecConf
 sed "s#leftid=.*#leftid=$left#" -i $ipsecConf
 
 sed "s#ike=.*#ike=$ike#" -i $ipsecConf
