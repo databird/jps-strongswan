@@ -19,6 +19,7 @@ targetNodes:
   nodeGroup:
   - bl
   - cp
+  - vps
 
 requiredFeatures: extip
 
@@ -77,7 +78,7 @@ settings:
       hideLabel: false
       editable: yes
       required: true
-      default: aes128-sha256-modp3072
+      default: aes256-sha512-ecp521!
     - type: list
       name: esp
       caption: esp
@@ -88,7 +89,7 @@ settings:
       hideLabel: false
       editable: yes
       required: true
-      default: aes128-sha256
+      default: aes256-sha512-ecp521
     - type: text
       name: hosts
       caption: Custom /etc/hosts
