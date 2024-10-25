@@ -19,7 +19,7 @@ targetNodes:
   nodeGroup:
   - bl
   - cp
-  - vps
+  - vds
 
 requiredFeatures: extip
 
